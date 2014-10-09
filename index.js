@@ -41,6 +41,10 @@ Proximity.prototype.getDistance = function(callback) {
     }
 
     var distance = ((duration * 1000)/2) / 29.1;
+
+    setImmediate(function() {
+      this.emit('data', distance);
+    }.bind(this));
     
     if (callback) {
       callback(null, distance);
