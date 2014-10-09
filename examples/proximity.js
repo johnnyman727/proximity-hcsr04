@@ -17,5 +17,3 @@ function printDistance() {
     printDistance();
   });
 }
-
-printDistance();

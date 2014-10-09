@@ -1,6 +1,6 @@
 {
-  "name": "prox-hcsr04",
-  "version": "1.0.0",
+  "name": "proximity-hcsr04",
+  "version": "0.1.0",
   "description": "A library to read the distance, in cm, from an hc-sr04 proximity sensor using Tessel",
   "main": "index.js",
   "scripts": {
