@@ -1,8 +1,6 @@
 #Proximity
 Driver for the hc-sr04 ultrasound sensor. It returns the distance, in cm, to the nearest object using ultrasound. 
 
-**NOTE**: This branch relies on a Tessel flash with the `kn-pulsein` branch of [firmware](https://github.com/tessel/firmware/tree/kn-pulsein). At the time of this writing, it hadn't yet been merged into master. 
-
 This driver was tested on Tessel. When using Tessel, you must use G3 on the GPIO bank as the echo pin and you can use any other GPIO as the trigger pin.
 
 The module works by pulling the trigger pin high for 10ms to signal to the proximity sensor that it should take a reading. Then the sensor pulls the echo pin high for an amount of time proportional to the distance to the nearest detected object. 
