@@ -10,6 +10,18 @@ The module works by pulling the trigger pin high for 10ms to signal to the proxi
 npm install proximity-hcsr04
 ```
 
+### Connecting it to Tessel
+Here is how I've been connecting the hardware to Tessel:
+```
+Sensor -> Tessel 
+----------------
+VCC -> VIN
+TRIG -> GPIO Port G2 (can be any GPIO)
+ECHO -> GPIO Port G3 (MUST be this GPIO)
+GND -> GND
+```
+I should note that you may fry your Tessel like this. Ideally, you would have a [voltage divider](https://learn.sparkfun.com/tutorials/voltage-dividers/) between the echo pin and Tessel because it's outputting 5V and Tessel is a 3.3V device. I should also call out that the echo pin *must* be connected to G3 on the GPIO port. The trigger pin can be any other GPIO.
+
 ###Example
 ```js
 var tessel = require('tessel');
