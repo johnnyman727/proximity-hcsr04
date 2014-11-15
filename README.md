@@ -11,16 +11,27 @@ npm install proximity-hcsr04
 ```
 
 ### Connecting it to Tessel
-Here is how I've been connecting the hardware to Tessel:
+There are only four pins on the proximity sensor but, because it operates at 5V, we need to add a bit more circuitry to make sure our Tessel (which operates at 3.3V) doesn't get harmed. 
+
+We need to take the signals coming from Tessel and boost them up to 5V and step the signals from the proximity sensor down to 3.3V. There are a couple of ways to do this. One simple way is to use a couple of resistors to make a [voltage divider](https://learn.sparkfun.com/tutorials/voltage-dividers/). I opted to use a [level shifter chip](https://www.sparkfun.com/products/12009) because I couldn't find resitors of the proper resistance lying around. 
 ```
-Sensor -> Tessel 
-----------------
-VCC -> VIN
-TRIG -> GPIO Port G2 (can be any GPIO)
-ECHO -> GPIO Port G3 (MUST be this GPIO)
-GND -> GND
+Proximity Sensor <-> Level Shifter  
+--------------------------------
+VCC <-> High Voltage
+ECHO <-> High Voltage Signal 1
+TRIG <-> High Voltage Signal 2
+GND <-> High Voltage GND
+
+Tessel <-> Level Shifter
+-------------------------
+3.3V <-> Low Voltage
+5V <-> High Voltage
+GND <-> Low Voltage GND
+GND <-> High Voltage GND
+GPIO Bank G3 <-> Low Voltage Signal 1
+GPIO Bank G2 <-> Low Voltage Signal 2
 ```
-I should note that you may fry your Tessel like this. Ideally, you would have a [voltage divider](https://learn.sparkfun.com/tutorials/voltage-dividers/) between the echo pin and Tessel because it's outputting 5V and Tessel is a 3.3V device. I should also call out that the echo pin *must* be connected to G3 on the GPIO port. The trigger pin can be any other GPIO.
+I should  call out that the echo pin *must* be connected to G3 on the GPIO port through the level shifter. It is the only pin that can read the kind of data being sent out by the sensor. The trigger pin can be any other GPIO.
 
 ###Example
 ```js
